@@ -1,9 +1,9 @@
 import platform
 import os
 
-
+print(platform.system())
 def clear_screen():
-    if platform.system() == 'Linux' or platform.system() == 'Dawrin':
+    if platform.system() == 'Linux' or platform.system() == 'Darwin':  #Rafa bobao nao sabe escrever Darwin
         os.system('clear')
     else:
         os.system('cls')
