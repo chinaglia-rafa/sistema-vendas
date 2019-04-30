@@ -102,6 +102,6 @@ class produtoImportado (produto):         #ALEM DO IMPOSTO, PRODUTO IMPORTADO, T
 
 #Area de Testes
 
-produto1 = produtoNacional(5, 'Biscoito', 100)
+#produto1 = produtoNacional(5, 'Biscoito', 100)
 
-produto1.exibirDadosProduto()
+#produto1.exibirDadosProduto()
