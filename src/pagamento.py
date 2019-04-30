@@ -64,7 +64,7 @@ class cheque (pagamento):
 
 class cartao (pagamento):
     def __init__(self, tipoPagamento, nome, numero):
-        super().__init__(tipoPagamento, nome, numero)
+        super().__init__(tipoPagamento)
         self.__nome = nome
         self.__numero = numero
 
@@ -92,11 +92,6 @@ class cartao (pagamento):
 
 #Area de testes
 
-pagamento1 = cartao("Cartao", "Marcelo", 1234321244123)
+#pagamento1 = pagamento("teste")
 
-pagamento1.exibirDados()
-
-
-
-
-    
+#pagamento1.exibirDados()
