@@ -84,7 +84,7 @@ class cartao (pagamento):
 
 
     def exibirDados (self):
-        print("Tipo de Pagamento: ", self.getTipoPagamento())
+        print("Tipo de Pagamento: ")
         print("Nome do Portador: ", self.getNome())
         print("Numero do Cartao: ", self.getNumero())
 
