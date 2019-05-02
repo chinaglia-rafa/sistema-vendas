@@ -111,12 +111,28 @@ while opt == -1:
             sub_opt = menu_cadastrar()
             if sub_opt == 1: #   Cadastro de Cliente
                 """ CADASTRANDO CLIENTE - @author: Marcelo Eduardo - @email: marceloer2011@gmail.com """
-
+                flag = 0 #VARIAVEL PRA AUXILIAR NO CADASTRO
                 nome = input("Digite o nome do cliente a ser cadastrado: ")
                 cpf = input("Digite o CPF do cliente: ")
-                clientes.append(cliente(cpf, nome))
+                opcao = "nada"
+                for percorre_clientes in clientes:
+                    if(percorre_clientes.getCPF() == cpf):
+                        while(str.lower(opcao) !=  "sim" and str.lower(opcao) != "nao"):
+                            opcao = input("Ja temos um cliente cadastrado com esse CPF, deseja prosseguir e fazer um novo cadastro com esses dados? (SIM ou NAO) ")
+                            if(str.lower(opcao) == "sim"):
+                                clientes.append(cliente(cpf, nome))
+                                input("Cliente cadastrado, aperte ENTER para continuar")
+                            elif(str.lower(opcao) == "nao"):
+                                print("Cancelando cadastro...")
+                                input("Aperte ENTER para continuar")
+                            else:
+                                print("Por favor escolha SIM ou NAO")
+                            flag = 1
+                if(flag == 0):
+                    clientes.append(cliente(cpf, nome))
+                    input("Cliente cadastrado, aperte ENTER para continuar")
+
                 sub_opt = -1
-                pass
 
             elif sub_opt == 2: #   Cadastro de Produto
                 """ CADASTRANDO PRODUTO - @author: Marcelo Eduardo - @email: marceloer2011@gmail.com """
@@ -124,20 +140,20 @@ while opt == -1:
                 codigo = input("Informe o codigo do produto: ")
                 descricao = input("Digite a descrição do produto: ")
                 valor = input("Informe o valor do produto: ")
-                tipo = "batata"
 
-                while(str.lower(tipo) != "nacional" and str.lower(tipo) != "importado"): #REPETE ATE O TIPO DE PRODUTO SER VALIDO
+                tipo = "nenhum"
+                opcao = "nada"
+
+                while(str.lower(tipo) != "nacional" and str.lower(tipo) != "importado"): #Loop de cadastro
                     tipo = input("Qual o tipo do produto? (Nacional, Importado): ")
                     if(str.lower(tipo) == "nacional"):  #convertendo a string para minusculo antes de comparar
                         produtos.append(produtoNacional(codigo, descricao, valor)) #caso for nacional, cria um objeto do tipo Nacional e coloca na lista(array)
-                        input()
                     elif(str.lower(tipo) == "importado"):  #convertendo a string para minusculo antes de comparar
                         produtos.append(produtoImportado(codigo, descricao, valor)) #caso for importado, cria um objeto do tipo Importado e coloca na lista(array)
-                        input()
                     else:
                         print("Tipo de produto invalido, tente uma das opções disponíveis!")
-                    sub_opt = -1
-                    pass
+                sub_opt = -1
+
 
             elif sub_opt == 3:
                 #   Voltando para o menu principal
@@ -148,17 +164,20 @@ while opt == -1:
         #   Registrar Compra
         pass
     elif opt == 3:
-        sub_opt = -1;
+        #   Relatórios
+        sub_opt = -1
         while sub_opt == -1:
             sub_opt = menu_relatorios()
+            #SUB-OPÇÃO 1
             if sub_opt == 1:
                 #   Lista de Clientes
-                """ Listar todos os clientes - @author: Marcelo Eduardo - @email: marceloer2011@gmail.com """
                 for cliente in clientes:   #Para cada item no array que guarda os clientes, utilize a função de exibir os dados do cliente
                     cliente.exibirCliente()
-                pass
+                input("Pressione ENTER para continuar...")
+                sub_opt = -1
+            #SUB-OPÇÃO 2
             elif sub_opt == 2:
-                #   Buscar Cliente  AINDA É NECESSARIO TRATAR O CASO EM QUE O USUARIO ENTRA ALGO INVALIDO (NEM CPF NEM NOME)
+                #   Buscar Cliente
                 busca = "batata"
 
                 while(str.lower(busca) != "cpf" and str.lower(busca) != "nome"):
@@ -168,40 +187,72 @@ while opt == -1:
                         for cliente in clientes:
                             if(cliente.getCPF() == cpf):
                                 cliente.exibirCliente()
-                                input()
+                                input("Pressione ENTER para continuar...")
                     elif(str.lower(busca) == "nome"):
                         nome = input("Digite o Nome que deseja buscar: ")
                         for cliente in clientes:
                             if(str.lower(cliente.getNome()) == str.lower(nome)):
                                 cliente.exibirCliente()
-                                input()
+                                input("Pressione ENTER para continuar...")
                     else:
-                        print("Por favor, escolha uma das opções dadas!")
+                        print("Por favor, escolha uma das opções disponíveis!")
 
                     sub_opt = -1
 
                 pass
+            #SUB-OPÇÃO 3
             elif sub_opt == 3:
                 #   Gastos de um cliente
                 pass
+
+            #SUB-OPÇÃO 4
             elif sub_opt == 4:
                 #   Produto Geral
-                pass
+                for produto in produtos:  #Para cada produto no array de produtos, exiba os dados desse produto
+                    print(" ")
+                    print("INFORMAÇÕES DO PRODUTO:")
+                    produto.exibirDadosProduto()
+                input("Pressione ENTER para continuar...")
+                sub_opt = -1
+            #SUB-OPÇÃO 5
             elif sub_opt == 5:
                 #   Buscar produto
-                pass
+                busca = "batata"
+                while(str.lower(busca) != "codigo" and str.lower(busca) != "descricao"):
+                    busca = input("Você deseja buscar o produto através do código ou da descrição? ")
+                    if(str.lower(busca) == "codigo"):
+                        codigo = input("Digite o código do produto: ")
+                        for produto in produtos:
+                            if(produto.getCodigo() == codigo):
+                                produto.exibirDadosProduto()
+                                input("Pressione ENTER para continuar...")
+                    elif(str.lower(busca) == "descricao"):
+                        descricao = input("Digite a descrição do produto: ")
+                        for produto in produtos:
+                            if(produto.getDescricao() == descricao):
+                                produto.exibirDadosProduto()
+                                input("Pressione ENTER para continuar...")
+                    else:
+                        print("Por favor, escolha uma das opções disponíveis!")
+                sub_opt = -1
+
+            #SUB-OPÇÃO 6
             elif sub_opt == 6:
                 #   Vendas Geral
-                pass
+                sub_opt = -1
+            #SUB-OPÇÃO 7
             elif sub_opt == 7:
                 #   Buscar Venda
-                pass
+                sub_opt = -1
+            #SUB-OPÇÃO 8
             elif sub_opt == 8:
                 #   Venda por tipo de pagamento (simples)
-                pass
+                sub_opt = -1
+            #SUB-OPÇÃO 9
             elif sub_opt == 9:
                 #   Venda por tipo de pagamento (detalhada)
-                pass
+                sub_opt = -1
+            #SUB-OPÇÃO 10
             elif sub_opt == 10:
                 #   Voltando para o menu principal
                 opt = -1
@@ -209,11 +260,11 @@ while opt == -1:
                 print("voltando do submenu para o menu principal")
     elif opt == 4:
         #   Salvar Dados
-        pass
+        opt = -1
     elif opt == 5:
         #   Carregar Dados
-        pass
+        opt = -1
     elif opt == 6:
-        pass
-
+        opt = -1
+        break
 print("EXECUTANDO OPÇÃO", opt, "COM SUBMENU", sub_opt)
