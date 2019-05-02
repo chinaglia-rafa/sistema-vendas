@@ -100,13 +100,13 @@ def menu_relatorios():
 
 
 opt = -1
-sub_opt = -1;
+sub_opt = -1
 
 while opt == -1:
     opt = main_menu()
     if opt == 1:
         #  Abrindo submenu de cadastro
-        sub_opt = -1;
+        sub_opt = -1
         while sub_opt == -1:
             sub_opt = menu_cadastrar()
             if sub_opt == 1: #   Cadastro de Cliente
@@ -124,18 +124,20 @@ while opt == -1:
                 codigo = input("Informe o codigo do produto: ")
                 descricao = input("Digite a descrição do produto: ")
                 valor = input("Informe o valor do produto: ")
-                tipo = input("Qual o tipo do produto? (Nacional, Importado): ")
+                tipo = "batata"
 
                 while(str.lower(tipo) != "nacional" and str.lower(tipo) != "importado"): #REPETE ATE O TIPO DE PRODUTO SER VALIDO
+                    tipo = input("Qual o tipo do produto? (Nacional, Importado): ")
                     if(str.lower(tipo) == "nacional"):  #convertendo a string para minusculo antes de comparar
                         produtos.append(produtoNacional(codigo, descricao, valor)) #caso for nacional, cria um objeto do tipo Nacional e coloca na lista(array)
+                        input()
                     elif(str.lower(tipo) == "importado"):  #convertendo a string para minusculo antes de comparar
                         produtos.append(produtoImportado(codigo, descricao, valor)) #caso for importado, cria um objeto do tipo Importado e coloca na lista(array)
+                        input()
                     else:
                         print("Tipo de produto invalido, tente uma das opções disponíveis!")
-                        tipo = input("Qual o tipo do produto? (Nacional, Importado): ")
                     sub_opt = -1
-                pass
+                    pass
 
             elif sub_opt == 3:
                 #   Voltando para o menu principal
@@ -157,22 +159,26 @@ while opt == -1:
                 pass
             elif sub_opt == 2:
                 #   Buscar Cliente  AINDA É NECESSARIO TRATAR O CASO EM QUE O USUARIO ENTRA ALGO INVALIDO (NEM CPF NEM NOME)
-                busca = input("Deseja buscar o cliente por CPF ou Nome? ")
+                busca = "batata"
 
-                if(str.lower(busca) == "cpf"):
-                    cpf = input("Digite o CPF que deseja buscar: ")
-                    for cliente in clientes:
-                        if(cliente.getCPF() == cpf):
-                            cliente.exibirCliente()
-                            pass
-                elif(str.lower(busca) == "nome"):
-                    nome = input("Digite o Nome que deseja buscar: ")
-                    for cliente in clientes:
-                        if(cliente.getNome() == nome):
-                            cliente.exibirCliente()
-                            pass
+                while(str.lower(busca) != "cpf" and str.lower(busca) != "nome"):
+                    busca = input("Deseja buscar o cliente por CPF ou Nome? ")
+                    if(str.lower(busca) == "cpf"):
+                        cpf = input("Digite o CPF que deseja buscar: ")
+                        for cliente in clientes:
+                            if(cliente.getCPF() == cpf):
+                                cliente.exibirCliente()
+                                input()
+                    elif(str.lower(busca) == "nome"):
+                        nome = input("Digite o Nome que deseja buscar: ")
+                        for cliente in clientes:
+                            if(str.lower(cliente.getNome()) == str.lower(nome)):
+                                cliente.exibirCliente()
+                                input()
+                    else:
+                        print("Por favor, escolha uma das opções dadas!")
 
-
+                    sub_opt = -1
 
                 pass
             elif sub_opt == 3:
@@ -199,7 +205,7 @@ while opt == -1:
             elif sub_opt == 10:
                 #   Voltando para o menu principal
                 opt = -1
-                sub_opt = -1
+
                 print("voltando do submenu para o menu principal")
     elif opt == 4:
         #   Salvar Dados
