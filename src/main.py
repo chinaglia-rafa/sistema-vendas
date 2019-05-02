@@ -1,5 +1,15 @@
 import platform
 import os
+from cliente import *
+from item import *
+from pagamento import *
+from produtos import *
+
+
+#DEFINIÇÃO DE LISTAS DE ARMAZENAMENTO
+clientes = []
+produtos = []
+
 
 print(platform.system())
 def clear_screen():
@@ -99,17 +109,39 @@ while opt == -1:
         sub_opt = -1;
         while sub_opt == -1:
             sub_opt = menu_cadastrar()
-        if sub_opt == 1:
-            #   Cadastro de Cliente
-            pass
-        elif sub_opt == 2:
-            #   Cadastro de Produto
-            pass
-        elif sub_opt == 3:
-            #   Voltando para o menu principal
-            opt = -1
-            sub_opt = -1
-            print("voltando do submenu para o menu principal")
+            if sub_opt == 1: #   Cadastro de Cliente
+                """ CADASTRANDO CLIENTE - @author: Marcelo Eduardo - @email: marceloer2011@gmail.com """
+
+                nome = input("Digite o nome do cliente a ser cadastrado: ")
+                cpf = input("Digite o CPF do cliente: ")
+                clientes.append(cliente(cpf, nome))
+                sub_opt = -1
+                pass
+
+            elif sub_opt == 2: #   Cadastro de Produto
+                """ CADASTRANDO PRODUTO - @author: Marcelo Eduardo - @email: marceloer2011@gmail.com """
+
+                codigo = input("Informe o codigo do produto: ")
+                descricao = input("Digite a descrição do produto: ")
+                valor = input("Informe o valor do produto: ")
+                tipo = input("Qual o tipo do produto? (Nacional, Importado): ")
+
+                while(str.lower(tipo) != "nacional" and str.lower(tipo) != "importado"): #REPETE ATE O TIPO DE PRODUTO SER VALIDO
+                    if(str.lower(tipo) == "nacional"):  #convertendo a string para minusculo antes de comparar
+                        produtos.append(produtoNacional(codigo, descricao, valor)) #caso for nacional, cria um objeto do tipo Nacional e coloca na lista(array)
+                    elif(str.lower(tipo) == "importado"):  #convertendo a string para minusculo antes de comparar
+                        produtos.append(produtoImportado(codigo, descricao, valor)) #caso for importado, cria um objeto do tipo Importado e coloca na lista(array)
+                    else:
+                        print("Tipo de produto invalido, tente uma das opções disponíveis!")
+                        tipo = input("Qual o tipo do produto? (Nacional, Importado): ")
+                    sub_opt = -1
+                pass
+
+            elif sub_opt == 3:
+                #   Voltando para o menu principal
+                opt = -1
+                print("voltando do submenu para o menu principal")
+
     elif opt == 2:
         #   Registrar Compra
         pass
@@ -117,38 +149,58 @@ while opt == -1:
         sub_opt = -1;
         while sub_opt == -1:
             sub_opt = menu_relatorios()
-        if sub_opt == 1:
-            #   Lista de Clientes
-            pass
-        elif sub_opt == 2:
-            #   Buscar Cliente
-            pass
-        elif sub_opt == 3:
-            #   Gastos de um cliente
-            pass
-        elif sub_opt == 4:
-            #   Produto Geral
-            pass
-        elif sub_opt == 5:
-            #   Buscar produto
-            pass
-        elif sub_opt == 6:
-            #   Vendas Geral
-            pass
-        elif sub_opt == 7:
-            #   Buscar Venda
-            pass
-        elif sub_opt == 8:
-            #   Venda por tipo de pagamento (simples)
-            pass
-        elif sub_opt == 9:
-            #   Venda por tipo de pagamento (detalhada)
-            pass
-        elif sub_opt == 10:
-            #   Voltando para o menu principal
-            opt = -1
-            sub_opt = -1
-            print("voltando do submenu para o menu principal")
+            if sub_opt == 1:
+                #   Lista de Clientes
+                """ Listar todos os clientes - @author: Marcelo Eduardo - @email: marceloer2011@gmail.com """
+                for cliente in clientes:   #Para cada item no array que guarda os clientes, utilize a função de exibir os dados do cliente
+                    cliente.exibirCliente()
+                pass
+            elif sub_opt == 2:
+                #   Buscar Cliente  AINDA É NECESSARIO TRATAR O CASO EM QUE O USUARIO ENTRA ALGO INVALIDO (NEM CPF NEM NOME)
+                busca = input("Deseja buscar o cliente por CPF ou Nome? ")
+
+                if(str.lower(busca) == "cpf"):
+                    cpf = input("Digite o CPF que deseja buscar: ")
+                    for cliente in clientes:
+                        if(cliente.getCPF() == cpf):
+                            cliente.exibirCliente()
+                            pass
+                elif(str.lower(busca) == "nome"):
+                    nome = input("Digite o Nome que deseja buscar: ")
+                    for cliente in clientes:
+                        if(cliente.getNome() == nome):
+                            cliente.exibirCliente()
+                            pass
+
+
+
+                pass
+            elif sub_opt == 3:
+                #   Gastos de um cliente
+                pass
+            elif sub_opt == 4:
+                #   Produto Geral
+                pass
+            elif sub_opt == 5:
+                #   Buscar produto
+                pass
+            elif sub_opt == 6:
+                #   Vendas Geral
+                pass
+            elif sub_opt == 7:
+                #   Buscar Venda
+                pass
+            elif sub_opt == 8:
+                #   Venda por tipo de pagamento (simples)
+                pass
+            elif sub_opt == 9:
+                #   Venda por tipo de pagamento (detalhada)
+                pass
+            elif sub_opt == 10:
+                #   Voltando para o menu principal
+                opt = -1
+                sub_opt = -1
+                print("voltando do submenu para o menu principal")
     elif opt == 4:
         #   Salvar Dados
         pass
