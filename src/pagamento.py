@@ -21,8 +21,8 @@ class pagamento(ABC):
 
 
 class dinheiro(pagamento):
-    def __init__(self, tipoPagamento):
-        super().__init__(tipoPagamento)
+    def __init__(self):
+        super().__init__("Dinheiro")
 
 
     def exibirDados(self):
@@ -35,8 +35,8 @@ class dinheiro(pagamento):
 
 
 class cheque (pagamento):
-    def __init__(self, tipoPagamento, nomeEmissor, numeroCheque):
-        super().__init__(tipoPagamento)
+    def __init__(self, nomeEmissor, numeroCheque):
+        super().__init__("Cheque")
         self.__nomeEmissor = nomeEmissor
         self.__numeroCheque = numeroCheque
 
@@ -63,8 +63,8 @@ class cheque (pagamento):
 
 
 class cartao (pagamento):
-    def __init__(self, tipoPagamento, nome, numero):
-        super().__init__(tipoPagamento)
+    def __init__(self, nome, numero):
+        super().__init__("Cartão")
         self.__nome = nome
         self.__numero = numero
 
