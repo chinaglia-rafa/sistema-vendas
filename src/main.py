@@ -116,7 +116,6 @@ while opt == -1:
                 cpf = input("Digite o CPF do cliente: ")
                 clientes.append(cliente(cpf, nome))
                 sub_opt = -1
-                pass
 
             elif sub_opt == 2: #   Cadastro de Produto
                 """ CADASTRANDO PRODUTO - @author: Marcelo Eduardo - @email: marceloer2011@gmail.com """
@@ -135,7 +134,6 @@ while opt == -1:
                         print("Tipo de produto invalido, tente uma das opções disponíveis!")
                         tipo = input("Qual o tipo do produto? (Nacional, Importado): ")
                     sub_opt = -1
-                pass
 
             elif sub_opt == 3:
                 #   Voltando para o menu principal
@@ -154,7 +152,6 @@ while opt == -1:
                 """ Listar todos os clientes - @author: Marcelo Eduardo - @email: marceloer2011@gmail.com """
                 for cliente in clientes:   #Para cada item no array que guarda os clientes, utilize a função de exibir os dados do cliente
                     cliente.exibirCliente()
-                pass
             elif sub_opt == 2:
                 #   Buscar Cliente  AINDA É NECESSARIO TRATAR O CASO EM QUE O USUARIO ENTRA ALGO INVALIDO (NEM CPF NEM NOME)
                 busca = input("Deseja buscar o cliente por CPF ou Nome? ")
@@ -164,17 +161,11 @@ while opt == -1:
                     for cliente in clientes:
                         if(cliente.getCPF() == cpf):
                             cliente.exibirCliente()
-                            pass
                 elif(str.lower(busca) == "nome"):
                     nome = input("Digite o Nome que deseja buscar: ")
                     for cliente in clientes:
                         if(cliente.getNome() == nome):
                             cliente.exibirCliente()
-                            pass
-
-
-
-                pass
             elif sub_opt == 3:
                 #   Gastos de um cliente
                 pass
