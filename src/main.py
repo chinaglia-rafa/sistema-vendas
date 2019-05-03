@@ -4,6 +4,7 @@ from cliente import *
 from item import *
 from pagamento import *
 from produtos import *
+from vendas import *
 
 
 #DEFINIÇÃO DE LISTAS DE ARMAZENAMENTO
@@ -101,6 +102,8 @@ def menu_relatorios():
 
 opt = -1
 sub_opt = -1
+
+# v = vendas('123', dinheiro(), cliente('400.971.138-83', 'Rafael Araújo Chinaglia'))
 
 while opt == -1:
     opt = main_menu()
