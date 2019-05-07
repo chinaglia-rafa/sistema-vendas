@@ -54,7 +54,7 @@ class produtoNacional(produto):          #PRODUTO NACIONAL TEM UM IMPOSTO DE 10%
         #self.__imposto = imposto
 
     def calcularPreco(self):
-        preco = self.getValor() + (self.getValor()*self.__imposto)/100
+        preco = int(self.getValor()) + (int(self.getValor())*int(self.__imposto))/100
         return preco
 
     def exibirDadosProduto(self):
@@ -86,7 +86,7 @@ class produtoImportado (produto):         #ALEM DO IMPOSTO, PRODUTO IMPORTADO, T
 
 
     def calcularPreco(self):
-        preco = self.getValor() + (self.getValor()*self.__imposto)/100 + (self.getValor()*self.__taxa)/100
+        preco = int(self.getValor()) + (int(self.getValor())*int(self.__imposto))/100 + (int(self.getValor())*int(self.__taxa))/100
         return preco
 
     def exibirDadosProduto(self):
