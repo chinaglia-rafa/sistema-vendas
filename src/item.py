@@ -1,12 +1,8 @@
-from produtos import produto
 
-#Fazendo a classe item como filha de produto, para reaproveitar Codigo
-#porem, como temos metodos abstratos, eles acabaram tendo que ser escritos
-#e ficaram obsoletos na classe item
 
-class item(produto):
-    def __init__(self, codigo, descricao, valor, quantidade, num):
-        super().__init__(codigo, descricao, valor)
+class item:
+    def __init__(self, produto, quantidade, num):
+        self.__produto = produto #VARIAVEL QUE GUARDA UM OBJETO DO TIPO PRODUTO
         self.__num = num
         self.__quantidade = quantidade
 
@@ -24,12 +20,6 @@ class item(produto):
     def getQuantidade(self):
         return self.__quantidade
 
-    #METODOS ABSTRATOS
-    def calcularPreco(self):
-        pass
-
-    def exibirDadosProduto(self):
-        pass
 
     #CALCULAR TOTAL
     def calcularTotal(self):

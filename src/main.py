@@ -10,11 +10,11 @@ from vendas import *
 #DEFINIÇÃO DE LISTAS DE ARMAZENAMENTO
 clientes = []
 produtos = []
-
+vendas = []
 
 print(platform.system())
 def clear_screen():
-    if platform.system() == 'Linux' or platform.system() == 'Darwin':  #Rafa bobao nao sabe escrever Darwin
+    if platform.system() == 'Linux' or platform.system() == 'Darwin':
         os.system('clear')
     else:
         os.system('cls')
@@ -99,7 +99,6 @@ def menu_relatorios():
     else:
         return menu_relatorios()
 
-
 opt = -1
 sub_opt = -1
 
@@ -165,7 +164,54 @@ while opt == -1:
 
     elif opt == 2:
         #   Registrar Compra
-        pass
+        # EM ANDAMENTO
+        aux = 0
+        opcao = "nada"
+        while(aux != 1 and opcao != "nao"):
+            yes_or_no = "nada"
+            tipo_pagamento = "nada"
+            numero = input("Digite o numero da compra: ")
+            cpf = input("Qual o CPF do cliente que fez a compra? ")
+
+            #Verifica o tipo de pagamento e pede os dados necessarios
+            while(str.lower(tipo_pagamento) != "cheque" and str.lower(tipo_pagamento) != "cartao" and str.lower(tipo_pagamento) != "dinheiro"):
+                print("ESCOLHA DO MÉTODO DE PAGAMENTO")
+                tipo_pagamento = input("Qual o tipo de pagamento? ")
+                if(str.lower(tipo_pagamento) == "dinheiro"):
+                    payment = dinheiro()
+                elif(str.lower(tipo_pagamento) == "cartao"):
+                    nome = input("Digite o nome do Titular do cartão: ")
+                    num = input("Digite o numero do cartão: ")
+                    payment = cartao(nome, num)
+                elif(str.lower(tipo_pagamento) == "cheque"):
+                    nome = input("Digite o nome do Emissor do cheque: ")
+                    num = input("Digite o numero do cheque: ")
+                    payment = cheque(nome, num)
+                else:
+                    print("Por favor escolha uma das opcões dadas: ")
+
+
+
+            for cliente in clientes: #BUSCA O CPF
+                print("a")
+                if(cliente.getCPF() == cpf):
+                    cliente_cadastro = cliente
+                    aux = 1
+            if(aux == 1): #SE O CPF FOI ENCONTRADO
+                compra = venda(numero, payment, cliente_cadastro)
+                vendas.append(compra)
+                opt = -1
+            else: #CPF NAO ENCONTRADO
+                while(str.lower(yes_or_no) != "sim" and str.lower(yes_or_no) != "nao"):
+                    yes_or_no = input("CPF não encontrado, deseja tentar novamente? (SIM, NAO): ")
+                    yes_or_no = str.lower(yes_or_no)
+                    if(str.lower(yes_or_no) != "sim" and str.lower(yes_or_no) != "nao"):
+                        print("Por favor, escolha uma das opções dadas!")
+
+
+        opt = -1
+
+
     elif opt == 3:
         #   Relatórios
         sub_opt = -1
@@ -181,7 +227,7 @@ while opt == -1:
             #SUB-OPÇÃO 2
             elif sub_opt == 2:
                 #   Buscar Cliente
-                busca = "batata"
+                busca = "nada"
 
                 while(str.lower(busca) != "cpf" and str.lower(busca) != "nome"):
                     busca = input("Deseja buscar o cliente por CPF ou Nome? ")
@@ -204,9 +250,11 @@ while opt == -1:
 
                 pass
             #SUB-OPÇÃO 3
-            elif sub_opt == 3:
+            elif sub_opt == 3:  #REVER
                 #   Gastos de um cliente
-                pass
+
+                sub_opt = -1
+
 
             #SUB-OPÇÃO 4
             elif sub_opt == 4:
@@ -220,7 +268,7 @@ while opt == -1:
             #SUB-OPÇÃO 5
             elif sub_opt == 5:
                 #   Buscar produto
-                busca = "batata"
+                busca = "nada"
                 while(str.lower(busca) != "codigo" and str.lower(busca) != "descricao"):
                     busca = input("Você deseja buscar o produto através do código ou da descrição? ")
                     if(str.lower(busca) == "codigo"):
