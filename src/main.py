@@ -154,13 +154,8 @@ while opt == -1:
                         produtos.append(produtoImportado(codigo, descricao, valor)) #caso for importado, cria um objeto do tipo Importado e coloca na lista(array)
                     else:
                         print("Tipo de produto invalido, tente uma das opções disponíveis!")
-<<<<<<< HEAD
-                        tipo = input("Qual o tipo do produto? (Nacional, Importado): ")
-                    sub_opt = -1
-=======
                 sub_opt = -1
 
->>>>>>> d69c0f475edcf9b549337a89fbbb28449aefcda4
 
             elif sub_opt == 3:
                 #   Voltando para o menu principal
@@ -227,23 +222,6 @@ while opt == -1:
                 #   Lista de Clientes
                 for cliente in clientes:   #Para cada item no array que guarda os clientes, utilize a função de exibir os dados do cliente
                     cliente.exibirCliente()
-<<<<<<< HEAD
-            elif sub_opt == 2:
-                #   Buscar Cliente  AINDA É NECESSARIO TRATAR O CASO EM QUE O USUARIO ENTRA ALGO INVALIDO (NEM CPF NEM NOME)
-                busca = input("Deseja buscar o cliente por CPF ou Nome? ")
-
-                if(str.lower(busca) == "cpf"):
-                    cpf = input("Digite o CPF que deseja buscar: ")
-                    for cliente in clientes:
-                        if(cliente.getCPF() == cpf):
-                            cliente.exibirCliente()
-                elif(str.lower(busca) == "nome"):
-                    nome = input("Digite o Nome que deseja buscar: ")
-                    for cliente in clientes:
-                        if(cliente.getNome() == nome):
-                            cliente.exibirCliente()
-            elif sub_opt == 3:
-=======
                 input("Pressione ENTER para continuar...")
                 sub_opt = -1
             #SUB-OPÇÃO 2
@@ -273,7 +251,6 @@ while opt == -1:
                 pass
             #SUB-OPÇÃO 3
             elif sub_opt == 3:  #REVER
->>>>>>> d69c0f475edcf9b549337a89fbbb28449aefcda4
                 #   Gastos de um cliente
 
                 sub_opt = -1
