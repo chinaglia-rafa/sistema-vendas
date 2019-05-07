@@ -99,6 +99,26 @@ def menu_relatorios():
     else:
         return menu_relatorios()
 
+def buscarProduto():
+    busca = "nada"
+    while(str.lower(busca) != "codigo" and str.lower(busca) != "descricao"):
+        busca = input("Você deseja buscar o produto através do código ou da descrição? ")
+        if(str.lower(busca) == "codigo"):
+            codigo = input("Digite o código do produto: ")
+            for produto in produtos:
+                if(produto.getCodigo() == codigo):
+                    return produto
+
+        elif(str.lower(busca) == "descricao"):
+            descricao = input("Digite a descrição do produto: ")
+            for produto in produtos:
+                if(produto.getDescricao() == descricao):
+                    return produto
+        else:
+            print("Por favor, escolha uma das opções disponíveis!")
+
+    return False
+
 opt = -1
 sub_opt = -1
 
@@ -164,19 +184,19 @@ while opt == -1:
 
     elif opt == 2:
         #   Registrar Compra
-        # EM ANDAMENTO
+        #   POSSIVELMENTE PRONTO
         aux = 0
         opcao = "nada"
         while(aux != 1 and opcao != "nao"):
-            yes_or_no = "nada"
+            opcao = "nada"
             tipo_pagamento = "nada"
             numero = input("Digite o numero da compra: ")
+
             cpf = input("Qual o CPF do cliente que fez a compra? ")
 
             #Verifica o tipo de pagamento e pede os dados necessarios
             while(str.lower(tipo_pagamento) != "cheque" and str.lower(tipo_pagamento) != "cartao" and str.lower(tipo_pagamento) != "dinheiro"):
-                print("ESCOLHA DO MÉTODO DE PAGAMENTO")
-                tipo_pagamento = input("Qual o tipo de pagamento? ")
+                tipo_pagamento = input("ESCOLHA DO MÉTODO DE PAGAMENTO (Cartao, Dinheiro, Cheque): ")
                 if(str.lower(tipo_pagamento) == "dinheiro"):
                     payment = dinheiro()
                 elif(str.lower(tipo_pagamento) == "cartao"):
@@ -202,12 +222,11 @@ while opt == -1:
                 vendas.append(compra)
                 opt = -1
             else: #CPF NAO ENCONTRADO
-                while(str.lower(yes_or_no) != "sim" and str.lower(yes_or_no) != "nao"):
-                    yes_or_no = input("CPF não encontrado, deseja tentar novamente? (SIM, NAO): ")
-                    yes_or_no = str.lower(yes_or_no)
-                    if(str.lower(yes_or_no) != "sim" and str.lower(yes_or_no) != "nao"):
+                while(str.lower(opcao) != "sim" and str.lower(opcao) != "nao"):
+                    opcao = input("CPF não encontrado, deseja tentar novamente? (SIM, NAO): ")
+                    opcao = str.lower(opcao)
+                    if(str.lower(opcao) != "sim" and str.lower(opcao) != "nao"):
                         print("Por favor, escolha uma das opções dadas!")
-
 
         opt = -1
 
@@ -224,6 +243,7 @@ while opt == -1:
                     cliente.exibirCliente()
                 input("Pressione ENTER para continuar...")
                 sub_opt = -1
+                
             #SUB-OPÇÃO 2
             elif sub_opt == 2:
                 #   Buscar Cliente
@@ -265,26 +285,18 @@ while opt == -1:
                     produto.exibirDadosProduto()
                 input("Pressione ENTER para continuar...")
                 sub_opt = -1
+
             #SUB-OPÇÃO 5
             elif sub_opt == 5:
                 #   Buscar produto
-                busca = "nada"
-                while(str.lower(busca) != "codigo" and str.lower(busca) != "descricao"):
-                    busca = input("Você deseja buscar o produto através do código ou da descrição? ")
-                    if(str.lower(busca) == "codigo"):
-                        codigo = input("Digite o código do produto: ")
-                        for produto in produtos:
-                            if(produto.getCodigo() == codigo):
-                                produto.exibirDadosProduto()
-                                input("Pressione ENTER para continuar...")
-                    elif(str.lower(busca) == "descricao"):
-                        descricao = input("Digite a descrição do produto: ")
-                        for produto in produtos:
-                            if(produto.getDescricao() == descricao):
-                                produto.exibirDadosProduto()
-                                input("Pressione ENTER para continuar...")
-                    else:
-                        print("Por favor, escolha uma das opções disponíveis!")
+                produto = buscarProduto()
+                if(produto != False):
+                    produto.exibirDadosProduto()
+                    input("Pressione ENTER para continuar...")
+                else:
+                    print("Produto não encontrado, por favor tente novamente.")
+                    input("Pressione ENTER para continuar...")
+
                 sub_opt = -1
 
             #SUB-OPÇÃO 6
