@@ -19,6 +19,14 @@ def clear_screen():
         os.system('cls')
 
 
+def buscar_venda(lista_vendas):
+    codigo = input("Digite o código da venda: ")
+    for venda in lista_vendas:
+        if(venda.get_numero() == codigo):
+            return venda
+    return False
+
+
 def buscar_cliente(lista_clientes):
     busca = "nada"
 
@@ -142,23 +150,23 @@ def buscarProduto():
 opt = -1
 sub_opt = -1
 # TESTES
-print("\n\nFIQUE ATENTO! DADOS DE TESTE ESTÃO SENDO USADOS A PARTIR DA LINHA 145!\n\n")
-rafa = cliente('400', 'Rafael Araújo Chinaglia')
-heitor = cliente('666', 'Heitor')
-clientes.append(rafa)
-clientes.append(heitor)
-p1 = produtoNacional('1', 'Dark Souls: Prepare to die Edition', 299)
-p2 = produtoImportado('1', 'Dark Souls III', 299)
-meuitem = item(p2, 2, 987)
-produtos.append(p1)
-produtos.append(p2)
-v = venda('123', dinheiro(), rafa)
-v.addItem(meuitem)
-meuitem = item(p1, 3, 789)
-v.addItem(meuitem)
-v.exibir(True)
-
-exit(0)
+# print("\n\nFIQUE ATENTO! DADOS DE TESTE ESTÃO SENDO USADOS A PARTIR DA LINHA 145!\n\n")
+# rafa = cliente('400', 'Rafael Araújo Chinaglia')
+# heitor = cliente('666', 'Heitor')
+# clientes.append(rafa)
+# clientes.append(heitor)
+# p1 = produtoNacional('1', 'Dark Souls: Prepare to die Edition', 299)
+# p2 = produtoImportado('1', 'Dark Souls III', 299)
+# meuitem = item(p2, 2, 987)
+# produtos.append(p1)
+# produtos.append(p2)
+# v = venda('123', dinheiro(), rafa)
+# v.addItem(meuitem)
+# meuitem = item(p1, 3, 789)
+# v.addItem(meuitem)
+# v.exibir(True)
+#
+# exit(0)
 
 while opt == -1:
     opt = main_menu()
@@ -332,19 +340,54 @@ while opt == -1:
             #SUB-OPÇÃO 6
             elif sub_opt == 6:
                 #   Vendas Geral
-                
+                for venda in vendas:
+                    print("\nCompra feita por:", venda.get_cliente().getNome())
+                    venda.exibir(False)
+                    print("")
+                input()
                 sub_opt = -1
             #SUB-OPÇÃO 7
             elif sub_opt == 7:
                 #   Buscar Venda
+                venda = buscar_venda(vendas)
+                if venda != False:
+                    venda.exibir(True)
+                    input()
+                else:
+                    input("Venda não encontrada!")
                 sub_opt = -1
             #SUB-OPÇÃO 8
             elif sub_opt == 8:
                 #   Venda por tipo de pagamento (simples)
+                tipo_pagamento = ""
+                while(str.lower(tipo_pagamento) != "cheque" and str.lower(tipo_pagamento) != "cartao" and str.lower(tipo_pagamento) != "dinheiro"):
+                    tipo_pagamento = input("ESCOLHA DO MÉTODO DE PAGAMENTO (Cartao, Dinheiro, Cheque): ")
+                    if str.lower(tipo_pagamento) != "cheque" and str.lower(tipo_pagamento) != "cartao" and str.lower(tipo_pagamento) != "dinheiro":
+                        print("Por favor escolha uma das opcões dadas: ")
+
+                for venda in vendas:
+                    if str.lower(venda.get_tipo_pagamento().getTipoPagamento()) == tipo_pagamento:
+                        print("\nCompra feita por:", venda.get_cliente().getNome())
+                        venda.exibir(False)
+                        print("")
+                input()
+
                 sub_opt = -1
             #SUB-OPÇÃO 9
             elif sub_opt == 9:
                 #   Venda por tipo de pagamento (detalhada)
+                tipo_pagamento = ""
+                while(str.lower(tipo_pagamento) != "cheque" and str.lower(tipo_pagamento) != "cartao" and str.lower(tipo_pagamento) != "dinheiro"):
+                    tipo_pagamento = input("ESCOLHA DO MÉTODO DE PAGAMENTO (Cartao, Dinheiro, Cheque): ")
+                    if str.lower(tipo_pagamento) != "cheque" and str.lower(tipo_pagamento) != "cartao" and str.lower(tipo_pagamento) != "dinheiro":
+                        print("Por favor escolha uma das opcões dadas: ")
+
+                for venda in vendas:
+                    if str.lower(venda.get_tipo_pagamento().getTipoPagamento()) == str.lower(tipo_pagamento):
+                        print("\nCompra feita por:", venda.get_cliente().getNome())
+                        venda.exibir(True)
+                        print("")
+                input()
                 sub_opt = -1
             #SUB-OPÇÃO 10
             elif sub_opt == 10:

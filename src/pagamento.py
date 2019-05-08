@@ -64,7 +64,7 @@ class cheque (pagamento):
 
 class cartao (pagamento):
     def __init__(self, nome, numero):
-        super().__init__("Cartão")
+        super().__init__("Cartao")
         self.__nome = nome
         self.__numero = numero
 
@@ -84,7 +84,7 @@ class cartao (pagamento):
 
 
     def exibirDados (self):
-        print("Tipo de Pagamento: ")
+        print("Tipo de Pagamento: ", self.getTipoPagamento())
         print("Nome do Portador: ", self.getNome())
         print("Numero do Cartao: ", self.getNumero())
 
