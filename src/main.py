@@ -20,6 +20,27 @@ def clear_screen():
         os.system('cls')
 
 
+def buscar_cliente(lista_clientes):
+    busca = "nada"
+
+    while(str.lower(busca) != "cpf" and str.lower(busca) != "nome"):
+        busca = input("Deseja buscar o cliente por CPF ou Nome? ")
+        if(str.lower(busca) == "cpf"):
+            cpf = input("Digite o CPF que deseja buscar: ")
+            for cliente in clientes:
+                if(cliente.getCPF() == cpf):
+                    return cliente
+            return False
+        elif(str.lower(busca) == "nome"):
+            nome = input("Digite o Nome que deseja buscar: ")
+            for cliente in clientes:
+                if(str.lower(cliente.getNome()) == str.lower(nome)):
+                    return cliente
+            return False
+        else:
+            print("Por favor, escolha uma das opções disponíveis!")
+
+
 def main_menu():
     """ Mostra o menu principal na tela e retorna a escolha """
 
@@ -225,37 +246,33 @@ while opt == -1:
                 input("Pressione ENTER para continuar...")
                 sub_opt = -1
             #SUB-OPÇÃO 2
-            elif sub_opt == 2:
+            elif sub_opt == 2:  # TODO: adicionar loop de tentar novamente
                 #   Buscar Cliente
-                busca = "nada"
-
-                while(str.lower(busca) != "cpf" and str.lower(busca) != "nome"):
-                    busca = input("Deseja buscar o cliente por CPF ou Nome? ")
-                    if(str.lower(busca) == "cpf"):
-                        cpf = input("Digite o CPF que deseja buscar: ")
-                        for cliente in clientes:
-                            if(cliente.getCPF() == cpf):
-                                cliente.exibirCliente()
-                                input("Pressione ENTER para continuar...")
-                    elif(str.lower(busca) == "nome"):
-                        nome = input("Digite o Nome que deseja buscar: ")
-                        for cliente in clientes:
-                            if(str.lower(cliente.getNome()) == str.lower(nome)):
-                                cliente.exibirCliente()
-                                input("Pressione ENTER para continuar...")
-                    else:
-                        print("Por favor, escolha uma das opções disponíveis!")
-
-                    sub_opt = -1
-
-                pass
-            #SUB-OPÇÃO 3
-            elif sub_opt == 3:  #REVER
-                #   Gastos de um cliente
+                cliente = buscar_cliente(clientes)
+                if cliente != False:
+                    cliente.exibirCliente()
+                else:
+                    input("Cliente não encontrado!")
 
                 sub_opt = -1
+            #SUB-OPÇÃO 3
+            elif sub_opt == 3:
+                #   Gastos de um cliente
+                cliente = buscar_cliente(clientes)
+                if cliente != False:
+                    vendas_from_cliente = []
+                    total_gasto = 0
+                    for venda in vendas:
+                        if venda.get_cliente().getCPF() == cliente.getCPF():
+                            total_gasto += venda.calcularTotal()
+                            vendas_from_cliente.append(venda)
+                    print("\nGastos do cliente", cliente.getNome())
+                    for venda in vendas_from_cliente:
+                        venda.exibir(False)
+                else:
+                    input("Cliente não encontrado!")
 
-
+                sub_opt = -1
             #SUB-OPÇÃO 4
             elif sub_opt == 4:
                 #   Produto Geral
