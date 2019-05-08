@@ -60,15 +60,15 @@ class produtoNacional(produto):          #PRODUTO NACIONAL TEM UM IMPOSTO DE 10%
     def exibirDadosProduto(self):
         print("Codigo do Produto: ", self.getCodigo())
         print("Descricao do Produto: ", self.getDescricao())
-        print("Valor do Produto: ", self.calcularPreco(), "Reais")
+        print("Valor do Produto: R$", "{:.2f}".format(self.calcularPreco()))
         print("Imposto sobre o Produto: ", self.__imposto, "%")
 
     def exibirDadosProdutoAsLinha(self, quantidade = 1):
-        print(str(self.getCodigo()).ljust(10), end = " ")
-        print(self.getDescricao().ljust(30), end = " ")
-        print("R$ " + str(self.calcularPreco()).ljust(12), end = " ")
+        print(str(self.getCodigo()).ljust(4), end = " ")
+        print(self.getDescricao().ljust(40), end = "  ")
+        print("R$ " + "{:.2f}".format(self.calcularPreco()).ljust(12), end = " ")
         print(str(quantidade).ljust(8), end = " ")
-        print("R$ " + str(quantidade * self.calcularPreco()).ljust(12), end = " ")
+        print("R$ " + "{:.2f}".format(quantidade * self.calcularPreco()).ljust(12), end = " ")
         print((str(self.getImposto()) + "%").ljust(8))
 
 
@@ -86,26 +86,26 @@ class produtoImportado (produto):         #ALEM DO IMPOSTO, PRODUTO IMPORTADO, T
         return self.__taxa
 
     def calcularPreco(self):
-        preco = int(self.getValor()) + (int(self.getValor())*int(self.__imposto))/100 + (int(self.getValor())*int(self.__taxa))/100
+        preco = float(self.getValor()) + (float(self.getValor())*float(self.__imposto))/100 + (float(self.getValor())*float(self.__taxa))/100
         return preco
 
     def exibirDadosProduto(self):
         print("Codigo do Produto: ", self.getCodigo())
         print("Descricao do Produto: ", self.getDescricao())
-        print("Valor do Produto: ", self.calcularPreco(), "Reais")
+        print("Valor do Produto: R$", "{:.2f}".format(self.calcularPreco()))
         print("Imposto do Produto: ", self.getImposto(), "%")
         print("Taxa do Produto: ", self.getTaxa(), "%")
 
     def exibirDadosProdutoAsLinha(self, quantidade = 1):
-        print(str(self.getCodigo()).ljust(10), end = " ")
-        print(self.getDescricao().ljust(30), end = " ")
-        print("R$ " + str(self.calcularPreco()).ljust(12), end = " ")
+        print(str(self.getCodigo()).ljust(4), end = " ")
+        print(self.getDescricao().ljust(40), end = "  ")
+        print("R$ " + "{:.2f}".format(self.calcularPreco()).ljust(12), end = " ")
         print(str(quantidade).ljust(8), end = " ")
-        print("R$ " + str(quantidade * self.calcularPreco()).ljust(12), end = " ")
+        print("R$ " + "{:.2f}".format(quantidade * self.calcularPreco()).ljust(12), end = " ")
         print((str(self.getImposto()) + "%").ljust(8), end = " ")
         print((str(self.getTaxa()) + "%").ljust(8))
 
 
 #Area de Testes
-produto1 = produtoImportado(5, 'Biscoito', 2500.25)
-produto1.exibirDadosProdutoAsLinha(2)
+# produto1 = produtoImportado(5, 'Biscoito', 2500.25)
+# produto1.exibirDadosProdutoAsLinha(2)

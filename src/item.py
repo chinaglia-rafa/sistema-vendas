@@ -23,11 +23,8 @@ class item:
     def getProduto(self):
         return self.__produto
 
-
-    #CALCULAR TOTAL
     def calcularTotal(self):
-        total = float(self.getValor()*self.getQuantidade())
-        return total
+        return float(self.getProduto().calcularPreco() * self.getQuantidade())
 
     def exibir_produto_como_linha(self):
         self.getProduto().exibirDadosProdutoAsLinha(self.getQuantidade())

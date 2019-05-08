@@ -12,7 +12,6 @@ clientes = []
 produtos = []
 vendas = []
 
-print(platform.system())
 def clear_screen():
     if platform.system() == 'Linux' or platform.system() == 'Darwin':
         os.system('clear')
@@ -142,8 +141,24 @@ def buscarProduto():
 
 opt = -1
 sub_opt = -1
+# TESTES
+print("\n\nFIQUE ATENTO! DADOS DE TESTE ESTÃO SENDO USADOS A PARTIR DA LINHA 145!\n\n")
+rafa = cliente('400', 'Rafael Araújo Chinaglia')
+heitor = cliente('666', 'Heitor')
+clientes.append(rafa)
+clientes.append(heitor)
+p1 = produtoNacional('1', 'Dark Souls: Prepare to die Edition', 299)
+p2 = produtoImportado('1', 'Dark Souls III', 299)
+meuitem = item(p2, 2, 987)
+produtos.append(p1)
+produtos.append(p2)
+v = venda('123', dinheiro(), rafa)
+v.addItem(meuitem)
+meuitem = item(p1, 3, 789)
+v.addItem(meuitem)
+v.exibir(True)
 
-# v = vendas('123', dinheiro(), cliente('400.971.138-83', 'Rafael Araújo Chinaglia'))
+exit(0)
 
 while opt == -1:
     opt = main_menu()
@@ -231,23 +246,21 @@ while opt == -1:
                 else:
                     print("Por favor escolha uma das opcões dadas: ")
 
-
-
             for cliente in clientes: #BUSCA O CPF
-                print("a")
                 if(cliente.getCPF() == cpf):
                     cliente_cadastro = cliente
                     aux = 1
             if(aux == 1): #SE O CPF FOI ENCONTRADO
                 compra = venda(numero, payment, cliente_cadastro)
                 vendas.append(compra)
+                input("Compra regitrada com sucesso!")
                 opt = -1
             else: #CPF NAO ENCONTRADO
                 while(str.lower(opcao) != "sim" and str.lower(opcao) != "nao"):
                     opcao = input("CPF não encontrado, deseja tentar novamente? (SIM, NAO): ")
                     opcao = str.lower(opcao)
                     if(str.lower(opcao) != "sim" and str.lower(opcao) != "nao"):
-                        print("Por favor, escolha uma das opções dadas!")
+                        input("Por favor, escolha uma das opções dadas!")
 
         opt = -1
 
@@ -264,7 +277,7 @@ while opt == -1:
                     cliente.exibirCliente()
                 input("Pressione ENTER para continuar...")
                 sub_opt = -1
-                
+
             #SUB-OPÇÃO 2
             elif sub_opt == 2:  # TODO: adicionar loop de tentar novamente
                 #   Buscar Cliente
@@ -319,6 +332,7 @@ while opt == -1:
             #SUB-OPÇÃO 6
             elif sub_opt == 6:
                 #   Vendas Geral
+                
                 sub_opt = -1
             #SUB-OPÇÃO 7
             elif sub_opt == 7:
