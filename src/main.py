@@ -18,36 +18,6 @@ def clear_screen():
     else:
         os.system('cls')
 
-
-def buscar_venda(lista_vendas):
-    codigo = input("Digite o código da venda: ")
-    for venda in lista_vendas:
-        if(venda.get_numero() == codigo):
-            return venda
-    return False
-
-
-def buscar_cliente(lista_clientes):
-    busca = "nada"
-
-    while(str.lower(busca) != "cpf" and str.lower(busca) != "nome"):
-        busca = input("Deseja buscar o cliente por CPF ou Nome? ")
-        if(str.lower(busca) == "cpf"):
-            cpf = input("Digite o CPF que deseja buscar: ")
-            for cliente in clientes:
-                if(cliente.getCPF() == cpf):
-                    return cliente
-            return False
-        elif(str.lower(busca) == "nome"):
-            nome = input("Digite o Nome que deseja buscar: ")
-            for cliente in clientes:
-                if(str.lower(cliente.getNome()) == str.lower(nome)):
-                    return cliente
-            return False
-        else:
-            print("Por favor, escolha uma das opções disponíveis!")
-
-
 def main_menu():
     """ Mostra o menu principal na tela e retorna a escolha """
 
@@ -109,7 +79,7 @@ def menu_relatorios():
     menu_options = ['Lista de Clientes', 'Buscar Cliente', 'Gastos de um cliente',
     'Lista de Produtos', 'Buscar Produto', 'Vendas', 'Buscar Venda',
     'Vendas por tipo de pagamento (simplificada)',
-    'Vendas por tipo de pagamento (etalhada)', 'Voltar']
+    'Vendas por tipo de pagamento (detalhada)', 'Voltar']
     i = 1
     for menu_item in menu_options:
         print(("   [ " + str(i) + " ]"), menu_item)
@@ -127,24 +97,51 @@ def menu_relatorios():
     else:
         return menu_relatorios()
 
-def buscarProduto():
+def buscar_cliente(lista_clientes):
+    busca = "nada"
+
+    while(str.lower(busca) != "cpf" and str.lower(busca) != "nome"):
+        busca = input("Deseja buscar o cliente por CPF ou Nome? ")
+        if(str.lower(busca) == "cpf"):
+            cpf = input("Digite o CPF que deseja buscar: ")
+            for cliente in lista_clientes:
+                if(cliente.getCPF() == cpf):
+                    return cliente
+            return False
+        elif(str.lower(busca) == "nome"):
+            nome = input("Digite o Nome que deseja buscar: ")
+            for cliente in lista_clientes:
+                if(str.lower(cliente.getNome()) == str.lower(nome)):
+                    return cliente
+            return False
+        else:
+            print("Por favor, escolha uma das opções disponíveis!")
+
+def buscarProduto(lista_produtos):
     busca = "nada"
     while(str.lower(busca) != "codigo" and str.lower(busca) != "descricao"):
         busca = input("Você deseja buscar o produto através do código ou da descrição? ")
         if(str.lower(busca) == "codigo"):
             codigo = input("Digite o código do produto: ")
-            for produto in produtos:
+            for produto in lista_produtos:
                 if(produto.getCodigo() == codigo):
                     return produto
 
         elif(str.lower(busca) == "descricao"):
             descricao = input("Digite a descrição do produto: ")
-            for produto in produtos:
-                if(produto.getDescricao() == descricao):
+            for produto in lista_produtos:
+                if(str.lower(produto.getDescricao()) == str.lower(descricao)):
                     return produto
         else:
             print("Por favor, escolha uma das opções disponíveis!")
 
+    return False
+
+def buscar_venda(lista_vendas):
+    codigo = input("Digite o código da venda: ")
+    for venda in lista_vendas:
+        if(venda.get_numero() == codigo):
+            return venda
     return False
 
 opt = -1
@@ -230,45 +227,86 @@ while opt == -1:
         #   Registrar Compra
         #   POSSIVELMENTE PRONTO
         aux = 0
-        opcao = "nada"
+        opcao = ""
         while(aux != 1 and opcao != "nao"):
-            opcao = "nada"
-            tipo_pagamento = "nada"
             numero = input("Digite o numero da compra: ")
-
-            cpf = input("Qual o CPF do cliente que fez a compra? ")
-
-            #Verifica o tipo de pagamento e pede os dados necessarios
-            while(str.lower(tipo_pagamento) != "cheque" and str.lower(tipo_pagamento) != "cartao" and str.lower(tipo_pagamento) != "dinheiro"):
-                tipo_pagamento = input("ESCOLHA DO MÉTODO DE PAGAMENTO (Cartao, Dinheiro, Cheque): ")
-                if(str.lower(tipo_pagamento) == "dinheiro"):
-                    payment = dinheiro()
-                elif(str.lower(tipo_pagamento) == "cartao"):
-                    nome = input("Digite o nome do Titular do cartão: ")
-                    num = input("Digite o numero do cartão: ")
-                    payment = cartao(nome, num)
-                elif(str.lower(tipo_pagamento) == "cheque"):
-                    nome = input("Digite o nome do Emissor do cheque: ")
-                    num = input("Digite o numero do cheque: ")
-                    payment = cheque(nome, num)
+            #REGISTRANDO OS ITENS DA COMPRA
+            aux_reset = 1
+            opcao_venda = "nada"
+            aux_itens = []
+            numero_do_item = ""
+            print("Iremos precisar realizar uma busca do(s) produto(s) a serem registrados na compra: ")
+            while(str.lower(opcao_venda) != "nao" and str.lower(opcao) != "nao"):
+                opcao = ""
+                aux_produto = buscarProduto(produtos)
+                if(aux_produto != False):
+                    quantidade_produtos = input("Quantos produtos desse mesmo tipo foram comprados? ")
+                    aux_num = input("Por favor, digite agora o número de registro do item: ")
+                    aux_item = item(aux_produto, quantidade_produtos, aux_num)
+                    aux_itens.append(aux_item)
+                    opcao_venda = input("Registro de item feito com sucesso! Deseja registrar outro item? (SIM ou NAO): ")
                 else:
-                    print("Por favor escolha uma das opcões dadas: ")
+                    while(str.lower(opcao) != "sim" and str.lower(opcao) != "nao"):
+                        opcao = input("Para registrar uma compra é necessário que o produto esteja cadastrado, deseja tentar novamente? (SIM, NAO): ")
+                        if(str.lower(opcao) != "sim" and str.lower(opcao) != "nao"):
+                            input("Por favor, escolha uma das opções dadas! (Pressione ENTER para continuar...)")
 
-            for cliente in clientes: #BUSCA O CPF
-                if(cliente.getCPF() == cpf):
-                    cliente_cadastro = cliente
+                #AQUI VERIFICAMOS A RESPOSTA DO CLIENTE E GUARDAMOS, PARA VER SE CONTINUAMOS COM O MENU OU SIMPLESMENTE RESETAMOS ELE
+                if(str.lower(opcao) == "nao"):
+                    aux_reset = 0
                     aux = 1
-            if(aux == 1): #SE O CPF FOI ENCONTRADO
-                compra = venda(numero, payment, cliente_cadastro)
-                vendas.append(compra)
-                input("Compra regitrada com sucesso!")
-                opt = -1
-            else: #CPF NAO ENCONTRADO
-                while(str.lower(opcao) != "sim" and str.lower(opcao) != "nao"):
-                    opcao = input("CPF não encontrado, deseja tentar novamente? (SIM, NAO): ")
-                    opcao = str.lower(opcao)
-                    if(str.lower(opcao) != "sim" and str.lower(opcao) != "nao"):
-                        input("Por favor, escolha uma das opções dadas!")
+
+
+
+            #BUSCAR CLIENTE
+            aux_busca_cliente = 0
+            if(aux_reset == 1):
+                opcao = ""
+                while(aux_busca_cliente == 0 and str.lower(opcao) != "nao"):
+                    opcao = ""
+                    print("Agora necessitamos dos dados do cliente que fez a compra, iremos buscar no banco de dados:")
+                    aux_cliente = buscar_cliente(clientes)
+                    if(aux_cliente != False):
+                        print("Cliente encontrado!")
+                        aux_busca_cliente = 1
+
+                    else: #CLIENTE NAO ENCONTRADO
+                        while(str.lower(opcao) != "sim" and str.lower(opcao) != "nao"):
+                            opcao = input("Para registrar uma compra, é necessário que o cliente esteja cadastrado, deseja tentar novamente? (SIM, NAO): ")
+                            if(str.lower(opcao) != "sim" and str.lower(opcao) != "nao"):
+                                input("Por favor, escolha uma das opções dadas! (Pressione ENTER para continuar...)")
+
+                    if(str.lower(opcao) == "nao"):
+                        aux_reset = 0
+                        aux = 1
+
+            if(aux_reset == 1):
+                tipo_pagamento = ""
+                #Verifica o tipo de pagamento e pede os dados necessarios
+                print("Registre por favor agora o método de pagamento e os dados necessarios")
+                while(str.lower(tipo_pagamento) != "cheque" and str.lower(tipo_pagamento) != "cartao" and str.lower(tipo_pagamento) != "dinheiro"):
+                    tipo_pagamento = ""
+                    tipo_pagamento = input("ESCOLHA DO MÉTODO DE PAGAMENTO (Cartao, Dinheiro, Cheque): ")
+                    if(str.lower(tipo_pagamento) == "dinheiro"):
+                        payment = dinheiro()
+                    elif(str.lower(tipo_pagamento) == "cartao"):
+                        nome = input("Digite o nome do Titular do cartão: ")
+                        num = input("Digite o numero do cartão: ")
+                        payment = cartao(nome, num)
+                    elif(str.lower(tipo_pagamento) == "cheque"):
+                        nome = input("Digite o nome do Emissor do cheque: ")
+                        num = input("Digite o numero do cheque: ")
+                        payment = cheque(nome, num)
+                    else:
+                        input("Por favor, escolha uma das opções dadas! (Pressione ENTER para continuar...)")
+
+
+            if(aux_reset == 1):
+                aux_venda = venda(numero, payment, aux_cliente)
+                vendas.append(aux_venda)
+                input("Compra registrada com sucesso... (Pressione ENTER para continuar...)")
+                aux = 1
+
 
         opt = -1
 
@@ -327,7 +365,7 @@ while opt == -1:
             #SUB-OPÇÃO 5
             elif sub_opt == 5:
                 #   Buscar produto
-                produto = buscarProduto()
+                produto = buscarProduto(produtos)
                 if(produto != False):
                     produto.exibirDadosProduto()
                     input("Pressione ENTER para continuar...")
