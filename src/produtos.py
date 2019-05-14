@@ -5,7 +5,7 @@ class produto(ABC):
     def __init__(self, codigo, descricao, valor):
         self.__codigo = codigo
         self.__descricao = descricao
-        self.__valor = valor
+        self.__valor = float(valor)
 
     #SETTERS
 
@@ -54,7 +54,7 @@ class produtoNacional(produto):          #PRODUTO NACIONAL TEM UM IMPOSTO DE 10%
         #self.__imposto = imposto
 
     def calcularPreco(self):
-        preco = int(self.getValor()) + (int(self.getValor())*int(self.__imposto))/100
+        preco = float(self.getValor()) + (float(self.getValor())*float(self.__imposto))/100
         return preco
 
     def exibirDadosProduto(self):

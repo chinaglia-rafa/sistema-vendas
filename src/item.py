@@ -4,7 +4,7 @@ class item:
     def __init__(self, produto, quantidade, num):
         self.__produto = produto #VARIAVEL QUE GUARDA UM OBJETO DO TIPO PRODUTO
         self.__num = num
-        self.__quantidade = quantidade
+        self.__quantidade = int(quantidade)
 
     #SETTERS
     def setNum(self, num):

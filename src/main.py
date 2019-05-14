@@ -1,5 +1,6 @@
 import platform
 import os
+import pickle
 from cliente import *
 from item import *
 from pagamento import *
@@ -162,6 +163,7 @@ sub_opt = -1
 # meuitem = item(p1, 3, 789)
 # v.addItem(meuitem)
 # v.exibir(True)
+# vendas.append(v)
 #
 # exit(0)
 
@@ -303,6 +305,8 @@ while opt == -1:
 
             if(aux_reset == 1):
                 aux_venda = venda(numero, payment, aux_cliente)
+                for item in aux_itens:
+                    aux_venda.addItem(item)
                 vendas.append(aux_venda)
                 input("Compra registrada com sucesso... (Pressione ENTER para continuar...)")
                 aux = 1
@@ -319,7 +323,9 @@ while opt == -1:
             #SUB-OPÇÃO 1
             if sub_opt == 1:
                 #   Lista de Clientes
+                print("\nListando Clientes Cadastrados!")
                 for cliente in clientes:   #Para cada item no array que guarda os clientes, utilize a função de exibir os dados do cliente
+                    print("")
                     cliente.exibirCliente()
                 input("Pressione ENTER para continuar...")
                 sub_opt = -1
@@ -329,7 +335,9 @@ while opt == -1:
                 #   Buscar Cliente
                 cliente = buscar_cliente(clientes)
                 if cliente != False:
+                    print("")
                     cliente.exibirCliente()
+                    input()
                 else:
                     input("Cliente não encontrado!")
 
@@ -348,6 +356,7 @@ while opt == -1:
                     print("\nGastos do cliente", cliente.getNome())
                     for venda in vendas_from_cliente:
                         venda.exibir(False)
+                        input()
                 else:
                     input("Cliente não encontrado!")
 
@@ -355,9 +364,10 @@ while opt == -1:
             #SUB-OPÇÃO 4
             elif sub_opt == 4:
                 #   Produto Geral
+                print(" ")
+                print("\nListando Produtos Cadastrados:")
                 for produto in produtos:  #Para cada produto no array de produtos, exiba os dados desse produto
-                    print(" ")
-                    print("INFORMAÇÕES DO PRODUTO:")
+                print("")
                     produto.exibirDadosProduto()
                 input("Pressione ENTER para continuar...")
                 sub_opt = -1
@@ -367,6 +377,7 @@ while opt == -1:
                 #   Buscar produto
                 produto = buscarProduto(produtos)
                 if(produto != False):
+                    print("")
                     produto.exibirDadosProduto()
                     input("Pressione ENTER para continuar...")
                 else:
@@ -435,9 +446,20 @@ while opt == -1:
                 print("voltando do submenu para o menu principal")
     elif opt == 4:
         #   Salvar Dados
+        print("Começando o salvamento dos dados!")
+        pickle_out = open("saved_data.pickle", "wb")
+        pickle.dump({'vendas': vendas, 'clientes': clientes, 'produtos': produtos}, pickle_out)
+        pickle_out.close()
+        input("Okay! Tudo salvo em saved_data.pickle!")
         opt = -1
     elif opt == 5:
         #   Carregar Dados
+        pickle_in = open("saved_data.pickle", "rb")
+        dados_carregados = pickle.load(pickle_in)
+        vendas = dados_carregados["vendas"]
+        clientes = dados_carregados["clientes"]
+        produtos = dados_carregados["produtos"]
+
         opt = -1
     elif opt == 6:
         opt = -1

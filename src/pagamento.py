@@ -27,12 +27,7 @@ class dinheiro(pagamento):
 
     def exibirDados(self):
         print("Tipo de pagamento: ", self.getTipoPagamento())
-
-
-
-
-
-
+        
 
 class cheque (pagamento):
     def __init__(self, nomeEmissor, numeroCheque):
