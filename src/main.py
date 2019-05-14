@@ -367,7 +367,7 @@ while opt == -1:
                 print(" ")
                 print("\nListando Produtos Cadastrados:")
                 for produto in produtos:  #Para cada produto no array de produtos, exiba os dados desse produto
-                print("")
+                    print("")
                     produto.exibirDadosProduto()
                 input("Pressione ENTER para continuar...")
                 sub_opt = -1
