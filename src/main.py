@@ -34,7 +34,7 @@ def main_menu():
     try:
         option = int(input("Escolha uma opção: "))
     except Exception as err:
-        print("Use apenas números entre 1 e 6.")
+        print("ERROR: Use apenas números entre 1 e 6.")
         input()
         return main_menu()
 
@@ -60,7 +60,7 @@ def menu_cadastrar():
     try:
         option = int(input("Escolha uma opção: "))
     except Exception as err:
-        print("Use apenas números entre 1 e", str(len(menu_options)))
+        print("ERROR: Use apenas números entre 1 e", str(len(menu_options)))
         input()
         return menu_cadastrar()
 
@@ -89,7 +89,7 @@ def menu_relatorios():
     try:
         option = int(input("Escolha uma opção: "))
     except Exception as err:
-        print("Use apenas números entre 1 e", str(len(menu_options)))
+        print("ERROR: Use apenas números entre 1 e", str(len(menu_options)))
         input()
         return menu_relatorios()
 

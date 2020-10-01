@@ -41,7 +41,6 @@ class cliente:
     def __init__ (self, cpf, nome):
         self.__cpf = cpf
         self.__nome = nome
-        
 
     def getCPF (self):
         return self.__cpf
