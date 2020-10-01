@@ -1,33 +1,31 @@
 from abc import ABC, abstractmethod #IMPORTANDO Modulo de Classes Abstratas
 
+
+#Classe Abstrata de pagamentos, que irá ser a base para os tipos de pagamento
 class pagamento(ABC):
     def __init__(self, tipoPagamento):
         self.__tipoPagamento = tipoPagamento
-
 
     #GETTERS
     def getTipoPagamento(self):
         return self.__tipoPagamento
 
-
     #SETTERS
     def setTipoPagamento(self, tipoPagamento):
         self.__tipoPagamento = tipoPagamento
 
-
+    #Metodo abstrato
     @abstractmethod
     def exibirDados (self):
         pass
-
 
 class dinheiro(pagamento):
     def __init__(self):
         super().__init__("Dinheiro")
 
-
     def exibirDados(self):
         print("Tipo de pagamento: ", self.getTipoPagamento())
-        
+
 
 class cheque (pagamento):
     def __init__(self, nomeEmissor, numeroCheque):
@@ -49,12 +47,10 @@ class cheque (pagamento):
     def setNumeroCheque(self, numeroCheque):
         self.__numeroCheque = numeroCheque
 
-
     def exibirDados (self):
         print("Tipo de Pagamento: ", self.getTipoPagamento())
         print("Nome do Emissor: ", self.getNomeEmissor())
         print("Numero Cheque: ", self.getNumeroCheque())
-
 
 
 class cartao (pagamento):
@@ -76,7 +72,6 @@ class cartao (pagamento):
 
     def setNumero(self, numero):
         self.__numero = numero
-
 
     def exibirDados (self):
         print("Tipo de Pagamento: ", self.getTipoPagamento())

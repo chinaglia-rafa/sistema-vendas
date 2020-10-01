@@ -8,7 +8,6 @@ class produto(ABC):
         self.__valor = float(valor)
 
     #SETTERS
-
     def setCodigo(self, codigo):
         self.__codigo = codigo
 
@@ -19,7 +18,6 @@ class produto(ABC):
         self.__valor = valor
 
     #GETTERS
-
     def getCodigo (self):
         return self.__codigo
 
